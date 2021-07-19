@@ -221,3 +221,6 @@ cython_debug/
 [Ss]cripts
 pyvenv.cfg
 pip-selfcheck.json
+
+.env
+.env.ps1
