@@ -23,7 +23,7 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 # See https://docs.djangoproject.com/en/3.2/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = os.getenv('STOCK_CHECKER_SECRET_KEY', '*+!t=6gv$8@8fegbist(z@6_#(dk(7e8idpin^(nkn^-xnp7a1')
+SECRET_KEY = os.getenv('STOCK_CHECKER_SECRET_KEY', '*+!t=6gv$8@8fegbist(z@6_#(dk(7e8idpin^(nkn^-xnp3a4')
 
 
 # SECURITY WARNING: don't run with debug turned on in production!
@@ -185,7 +185,7 @@ CORS_ORIGIN_ALLOW_ALL = ast.literal_eval(os.getenv('CORS_ALLOW_ALL', 'True'))  #
 # following settings are used by django to make sending emails through your email host server possible.
 EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
 EMAIL_HOST = MAIL_HOST
-EMAIL_USE_TLS = MAIL_USE_TLS
+EMAIL_USE_TLS = True
 EMAIL_PORT = MAIL_PORT
 EMAIL_HOST_USER = MAIL_HOST_USER
 EMAIL_HOST_PASSWORD = MAIL_HOST_PASSWORD
