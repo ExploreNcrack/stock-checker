@@ -29,7 +29,7 @@ services:
       - db
       - redis
 
-   redis:
+  redis:
     image: redis:alpine
 
   celery:
