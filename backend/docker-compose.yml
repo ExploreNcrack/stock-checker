@@ -1,0 +1,72 @@
+version: '3'
+    
+services:
+  db:
+    image: mysql:5.7
+    env_file: .env
+    volumes:
+      - "./db:/var/lib/mysql"
+    ports:
+        - "${STOCK_CHECKER_MYSQL_PORT}:${STOCK_CHECKER_MYSQL_PORT}"
+    restart: always
+    environment:
+        MYSQL_DATABASE: ${STOCK_CHECKER_MYSQL_DB_NAME}
+        MYSQL_USER: ${STOCK_CHECKER_MYSQL_USER}
+        MYSQL_PASSWORD: ${STOCK_CHECKER_MYSQL_PASSWORD}
+        MYSQL_ROOT_PASSWORD: ${STOCK_CHECKER_MYSQL_PASSWORD}
+
+  django:
+    restart: always
+    env_file: .env
+    build: .
+    command:
+      "gunicorn --workers=2 --bind=0.0.0.0:8080 stock_checker.wsgi:application"
+    volumes:
+      - static_volume:/src/staticfiles
+    ports:
+      - "8080:8080"
+    depends_on:
+      - db
+      - redis
+
+   redis:
+    image: redis:alpine
+
+  celery:
+    build: .
+    restart: always
+    env_file: .env
+    command: celery -A stock_checker worker -l info
+    volumes:
+        - static_volume:/src/staticfiles
+    depends_on:
+        - db
+        - redis
+        - django
+
+  celery_beat:
+    build: .
+    restart: always
+    env_file: .env
+    command: celery -A stock_checker  beat -l INFO --scheduler django_celery_beat.schedulers:DatabaseScheduler
+    volumes:
+        - static_volume:/src/staticfiles
+    depends_on:
+        - db
+        - redis
+        - django
+
+  nginx:
+    image: nginx:1.17
+    container_name: ngx
+    restart: always
+    ports:
+      - "80:80"
+    volumes:
+      - ./nginx:/etc/nginx/conf.d
+      - static_volume:/src/staticfiles
+    depends_on:
+      - django
+
+volumes:
+  static_volume:
