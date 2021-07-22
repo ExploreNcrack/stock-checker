@@ -15,3 +15,7 @@ MAIL_USE_TLS = os.environ.get("STOCK_CHECKER_EMAIL_USE_TLS", None)
 MAIL_PORT = os.environ.get("STOCK_CHECKER_EMAIL_PORT", None)
 MAIL_HOST_USER = os.environ.get("STOCK_CHECKER_EMAIL_HOST_USER", None)
 MAIL_HOST_PASSWORD = os.environ.get("STOCK_CHECKER_EMAIL_HOST_PASSWORD", None)
+
+############# celery settings #################
+
+CELERY_BROKER = os.environ.get("STOCK_CHECKER_CELERY_BROKER_URL", None)

@@ -18,6 +18,10 @@ $env:STOCK_CHECKER_EMAIL_PORT = ''
 $env:STOCK_CHECKER_EMAIL_HOST_USER = ''
 $env:STOCK_CHECKER_EMAIL_HOST_PASSWORD = ''
 
+# Celery settings
+# for redis:  'redis://127.0.0.1:6379/0'
+$env:STOCK_CHECKER_CELERY_BROKER_URL=''
+
 $env:MYSITE_SECRET_KEY = ''
 # False for production
 $env:DEBUG = ''
