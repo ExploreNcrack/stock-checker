@@ -11,6 +11,8 @@
     - clicked, the subscription is deleted
   - "send now" button
     - button is clicked, the current stock price will be sent to the subscribed email address.
+  - periodically send stock ticker subscriptions email to those users that subscribed
+    - e.g.: every hour between 9:00 - 20:00 EST Monday - Friday 
 
 
 
