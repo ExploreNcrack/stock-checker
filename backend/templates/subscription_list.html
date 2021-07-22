@@ -1,0 +1,51 @@
+{% extends 'base.html' %}
+{% load poll_extras %}
+{% block title %} Subscription List {% endblock %}
+{%block content %}
+    <div class="container m-3">
+        <h3 class="my-5"> Subscription List </h3>
+        {% if messages %}
+            <div class="messages">
+                {% for message in messages %}
+                <div class="alert alert-success messages" role="alert"> {{ message }} </div>
+                {% endfor %}
+            </div>
+        {% endif %}
+        <div class="d-flex flex-row-reverse">
+            <a href={% url 'add_subscription' %} class="btn btn-success mx-2">Add</a>
+        </div>
+        <table class="table table-bordered m-2">
+            <thead>
+                <tr>
+                    <th >Stock tickers</th>
+                    <th >Email</th>
+                    <th ></th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for subscription in subscriptions %}
+                <tr>
+                    <td>
+                        <text> {{ subscription.stock_ticker }}  ${{ stock_ticker_data|lookup:subscription.stock_ticker }} </text>
+                    </td>
+                    <td>
+                        <text> {{ subscription.email }} </text>
+                    </td>
+                    <td>
+                        <div class="btn-group">
+                        <form action="{% url 'send_now' subscription.id %}" method="get" class="p-2">
+                            {% csrf_token %}
+                            <input class="btn btn-primary" type="submit" value="Send Now">
+                        </form>
+                        <form action="{% url 'delete_subscription' subscription.id %}" method="post" class="p-2">
+                            {% csrf_token %}
+                            <input class="btn btn-danger" type="submit" value="Delete">
+                        </form>
+                        </div>
+                    </td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+{% endblock %}

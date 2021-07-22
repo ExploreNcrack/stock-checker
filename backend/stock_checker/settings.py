@@ -43,6 +43,7 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'rest_framework',
     'subscriptions',
+    'django_celery_beat',
 ]
 
 MIDDLEWARE = [
@@ -60,7 +61,7 @@ ROOT_URLCONF = 'stock_checker.urls'
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [],
+        'DIRS': [os.path.join(BASE_DIR,'templates')],
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
@@ -108,6 +109,11 @@ AUTH_PASSWORD_VALIDATORS = [
         'NAME': 'django.contrib.auth.password_validation.NumericPasswordValidator',
     },
 ]
+
+
+REST_FRAMEWORK = {
+    
+}
 
 
 # Internationalization
@@ -173,3 +179,18 @@ if not DEBUG:
 
 # allow all cors
 CORS_ORIGIN_ALLOW_ALL = ast.literal_eval(os.getenv('CORS_ALLOW_ALL', 'True'))  # If this is used then `CORS_ORIGIN_WHITELIST` will not have any effect
+
+# email config
+# following settings are used by django to make sending emails through your email host server possible.
+EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
+EMAIL_HOST = MAIL_HOST
+EMAIL_USE_TLS = MAIL_USE_TLS
+EMAIL_PORT = MAIL_PORT
+EMAIL_HOST_USER = MAIL_HOST_USER
+EMAIL_HOST_PASSWORD = MAIL_HOST_PASSWORD
+
+# Celery Configuration Options
+CELERY_BROKER_URL = 'redis://127.0.0.1:6379/0'
+CELERY_TIMEZONE = "Canada/Eastern"
+CELERY_TASK_TRACK_STARTED = True
+CELERY_TASK_TIME_LIMIT = 30 * 60

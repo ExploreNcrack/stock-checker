@@ -9,6 +9,15 @@ $env:STOCK_CHECKER_MYSQL_DB_NAME = ''
 $env:STOCK_CHECKER_MYSQL_USER = ''
 $env:STOCK_CHECKER_MYSQL_PASSWORD = ''
 
+# email settings
+# if use Gmail, STOCK_CHECKER_EMAIL_HOST="smtp.gmail.com"
+$env:STOCK_CHECKER_EMAIL_HOST = ''
+# usually 'True'
+$env:STOCK_CHECKER_EMAIL_USE_TLS = ''
+$env:STOCK_CHECKER_EMAIL_PORT = ''
+$env:STOCK_CHECKER_EMAIL_HOST_USER = ''
+$env:STOCK_CHECKER_EMAIL_HOST_PASSWORD = ''
+
 $env:MYSITE_SECRET_KEY = ''
 # False for production
 $env:DEBUG = ''

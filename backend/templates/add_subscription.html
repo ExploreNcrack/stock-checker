@@ -1,0 +1,15 @@
+{% extends 'base.html' %} 
+{% block title %} Add Subscription {% endblock %}
+
+{%block content %}
+    <div class="container m-5">
+        <div class="form-group">
+            <form method="post">
+                {% csrf_token %}
+                {{ form.as_p }}
+                <input class="btn btn-primary" type="submit" value="Submit">
+                <a href="/" class="mx-4 link-secondary">Back</a>
+            </form>
+        </div>
+    <div>
+{% endblock %}
